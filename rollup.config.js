@@ -7,6 +7,7 @@ import copy from 'rollup-plugin-copy';
 import { scss as svelteScss, sass as svelteSass } from 'svelte-preprocess';
 import sass from 'rollup-plugin-sass';
 import scss from 'rollup-plugin-scss';
+import json from "@rollup/plugin-json";
 
 const production = !process.env.ROLLUP_WATCH;
 const targetFolder = production ? 'dist' : 'public';
@@ -44,7 +45,7 @@ export default {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: targetFolder + '/bundle.js'
+		file: targetFolder + '/build/bundle.js'
 	},
 	plugins: [
 		svelte({
@@ -61,12 +62,14 @@ export default {
 		}),
 
 		scss({
-			output: targetFolder + '/global.css',
+			output: targetFolder + '/build/global.css',
 		}),
 		sass({
 			// Filename to write all styles
-			output: targetFolder + '/bundle.css',
+			output: targetFolder + '/build/bundle.css',
 		}),
+
+		json(),
 
 		// Copy files from the static dir, as well as other requirements into their targets
 		copy({
@@ -90,7 +93,7 @@ export default {
 
 		// Watch the `public` directory and refresh the
 		// browser on changes when not in production
-		!production && livereload('public'),
+		!production && livereload(targetFolder + '/build'),
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
