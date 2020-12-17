@@ -9,11 +9,13 @@
 	}
 </style>
 
-<main>
-	<h1>Hello world!</h1>
+<div class="container mt-4">
+	<div class="jumbotron">
+		<h1>Hello world!</h1>
+	</div>
 	<p>
 		Visit the
 		<a href="https://svelte.dev/tutorial">Svelte tutorial</a>
 		to learn how to build Svelte apps.
 	</p>
-</main>
+</div>
