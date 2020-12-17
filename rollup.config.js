@@ -4,7 +4,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import copy from 'rollup-plugin-copy';
-import { scss as svelteScss, sass as svelteSass } from 'svelte-preprocess';
+import { scss as svelteScss, sass as svelteSass, replace } from 'svelte-preprocess';
 import sass from 'rollup-plugin-sass';
 import scss from 'rollup-plugin-scss';
 import json from "@rollup/plugin-json";
@@ -54,6 +54,9 @@ export default {
 					prependData: '@import "src/styles/variables.scss";'
 				}),
 				svelteSass(),
+				replace([
+					['process.env.NODE_ENV', JSON.stringify(process.env.NODE_ENV)],
+				]),
 			],
 			compilerOptions: {
 				// enable run-time checks when not in production
